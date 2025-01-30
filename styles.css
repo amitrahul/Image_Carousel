@@ -1,0 +1,86 @@
+.carousel {
+  width: 100%;
+}
+.carousel__slides {
+  display: flex;
+  column-gap: 20px;
+  overflow: auto;
+  scroll-snap-type: x mandatory;
+}
+.carousel__slide {
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+  border-radius: 20%;
+}
+
+.carousel__slides {
+  scrollbar-width: none;
+}
+.carousel__slides::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel__slide > img {
+  width: 80vw;
+  height: 85vh;
+}
+
+.carousel {
+  padding-bottom: 60px;
+  position: relative;
+}
+
+.carousel__navdots {
+  bottom: 0;
+  column-gap: 16px;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+.carousel__navdots button {
+  -moz-appearance: none;
+  -webkit-apperance: none;
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  background-color: #9a9a9a;
+  border-radius: 50%;
+  height: 10px;
+  padding: 0;
+  width: 10px;
+}
+.carousel__navdots button:focus-visible {
+  outline: 2px solid #0060a8;
+  outline-offset: 2px;
+}
+.carousel__navdots button.is-active {
+  background-color: #0060a8;
+}
+
+.carousel__slides.smooth-scroll {
+  scroll-behavior: smooth;
+}
+
+.button_wrapper {
+  display: flex;
+  padding-left: 140px;
+  padding-right: 140px;
+  bottom: 10;
+  position: absolute;
+  top: 40vh;
+  column-gap: 75vw;
+}
+.prev,
+.next {
+  cursor: pointer;
+  background-color: green;
+  color: wheat;
+  float: right;
+  padding: 5px;
+  border-radius: none;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}

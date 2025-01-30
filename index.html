@@ -3,40 +3,96 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
     <title>Image-Carousel</title>
   </head>
   <body>
-    <div class="carousel">
-      <div class="carousel-track">
-        <img
-          src="asset/images/image1.jpg"
-          alt="Image_1"
-          class="carousel-slide lazy"
-        />
-        <img
-          src="asset/images/image2.jpg"
-          alt="Image_2"
-          class="carousel-slide lazy"
-        />
-        <img
-          src="asset/images/image3.jpg"
-          alt="Image_3"
-          class="carousel-slide lazy"
-        />
-        <img
-          src="asset/images/image4.jpg"
-          alt="Image_4"
-          class="carousel-slide lazy"
-        />
-        <img
-          src="asset/images/image5.jpg"
-          alt="Image_5"
-          class="carousel-slide lazy"
-        />
+    <div class="carousel-wrapper">
+      <div
+        class="carousel"
+        role="group"
+        aria-label="nature_beauty"
+        aria-roledescription="carousel"
+      >
+        <div
+          aria-label="Choose slide to display"
+          role="group"
+          class="carousel__navdots home-page"
+        >
+          <button
+            type="button"
+            aria-label="1 of 5"
+            aria-disabled="true"
+          ></button>
+          <button
+            type="button"
+            aria-label="2 of 5"
+            aria-disabled="false"
+          ></button>
+          <button
+            type="button"
+            aria-label="3 of 5"
+            aria-disabled="false"
+          ></button>
+          <button
+            type="button"
+            aria-label="4 of 5"
+            aria-disabled="false"
+          ></button>
+          <button
+            type="button"
+            aria-label="5 of 5"
+            aria-disabled="false"
+          ></button>
+        </div>
+        <div class="carousel__slides" aria-atomic="false" aria-live="off">
+          <div
+            class="carousel__slide"
+            role="group"
+            aria-label="1 of 5"
+            aria-roledescription="slide"
+          >
+            <img src="asset/images/image1.jpg" width="1100px" height="700px" />
+          </div>
+          <div
+            class="carousel__slide"
+            role="group"
+            aria-label="2 of 5"
+            aria-roledescription="slide"
+          >
+            <img src="asset/images/image2.jpg" />
+          </div>
+          <div
+            class="carousel__slide"
+            role="group"
+            aria-label="3 of 5"
+            aria-roledescription="slide"
+          >
+            <img src="asset/images/image3.jpg" />
+          </div>
+          <div
+            class="carousel__slide"
+            role="group"
+            aria-label="4 of 5"
+            aria-roledescription="slide"
+          >
+            <img src="asset/images/image4.jpg" />
+          </div>
+          <div
+            class="carousel__slide"
+            role="group"
+            aria-label="5 of 5"
+            aria-roledescription="slide"
+          >
+            <img src="asset/images/image5.jpg" />
+          </div>
+        </div>
+        <div class="button_wrapper">
+          <button class="prev">&#10094;</button>
+          <button class="next">&#10095;</button>
+        </div>
       </div>
-      <button class="prev">&#10094;</button>
-      <button class="next">&#10095;</button>
-      <div class="dots"></div>
     </div>
+    <script src="script.js"></script>
   </body>
 </html>
