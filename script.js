@@ -76,3 +76,14 @@ slideWrapper.addEventListener("scroll", () => {
 // mark the first navigation dot upon the page loading.
 markNavdot(0);
 slideWrapper.classList.add("smooth-scroll");
+
+// for Responsive design
+window.addEventListener("resize", () => {
+  slideWidth = slides[0].offsetWidth;
+  spaceBtwSlides = Number(
+    window
+      .getComputedStyle(slideWrapper)
+      .getPropertyValue("grid-column-gap")
+      .slice(0, -2)
+  );
+});
