@@ -54,7 +54,7 @@ function markNavdot(index) {
  */
 
 function updateNavdot() {
-  const c = index_slideCurrent();
+  const c = index_of_CurrentSlide();
   if (c < 0 || c >= total_Slides) return;
   markNavdot(c);
 }
@@ -102,7 +102,7 @@ const lastSlideClone = slides[total_Slides - 1].cloneNode(true);
 lastSlideClone.setAttribute("aria-hidden", "true");
 slideWrapper.prepend(lastSlideClone);
 
-const rewindScroll = () => {
+function rewindScroll() {
   slideWrapper.classList.remove("smooth-scroll");
   setTimeout(() => {
     slideWrapper.scrollTo(
@@ -111,9 +111,9 @@ const rewindScroll = () => {
     );
     slideWrapper.classList.add("smooth-scroll");
   }, 100);
-};
+}
 
-const forwardScroll = () => {
+function forwardScroll() {
   slideWrapper.classList.remove("smooth-scroll");
   setTimeout(() => {
     slideWrapper.scrollTo(
@@ -122,7 +122,7 @@ const forwardScroll = () => {
     );
     slideWrapper.classList.add("smooth-scroll");
   }, 100);
-};
+}
 
 /**
  * used setTimeout() and clearTimeout() so that don't run the code 
@@ -152,11 +152,13 @@ slideWrapper.addEventListener("scroll", () => {
 
     if (
       slideWrapper.scrollLeft >
-      (slideWidth + spaceBtwSlides) * (total_slidesCloned - 1 / 2)
+      (slideWidth + spaceBtwSlides) *
+        (total_Slides - 1 + total_slidesCloned + 1 / 2)
     ) {
       rewindScroll();
     }
   }, 1000);
+  updateNavdot();
 });
 
 handleNavDotPositionSlide(0);
@@ -169,7 +171,7 @@ const nextSlide = () => {
   handleNavDotPositionSlide(index_of_CurrentSlide() + 1);
 };
 
-const pauseTimer = 1500;
+const pauseTimer = 2500;
 let intervalTime;
 
 // it starts autoplaying the carousel.
@@ -191,8 +193,8 @@ const stopCarouselSlide = () => {
 // start autoplay is when the carousel fully enters into the user’s viewport.
 const observer = new IntersectionObserver(callback, { threshold: 0.99 });
 
-function callback() {
-  enteries.forEach((entry) => {
+function callback(entries, observer) {
+  entries.forEach((entry) => {
     if (entry.isIntersecting) {
       playCarouselSlide();
     } else {
@@ -200,6 +202,8 @@ function callback() {
     }
   });
 }
+
+observer.observe(carouselContainer);
 
 /*
 * Togging autoplay for mouse users :-
@@ -242,4 +246,26 @@ carouselContainer.addEventListener(
  */
 carouselContainer.addEventListener("touchstart", () => {
   stopCarouselSlide();
+});
+
+/*
+ * Toggling autoplay for window resizing
+ */
+
+let resizeTimer;
+
+window.addEventListener("resize", () => {
+  slideWidth = slides[0].offsetWidth;
+  spaceBtwSlides = Number(
+    window
+      .getComputedStyle(slideWrapper)
+      .getPropertyValue("grid-column-gap")
+      .slice(0, -2)
+  );
+
+  if (resizeTimer) clearTimeout(resizeTimer);
+  stopCarouselSlide();
+  resizeTimer = setTimeout(() => {
+    playCarouselSlide();
+  }, 500);
 });
