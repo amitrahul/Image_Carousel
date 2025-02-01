@@ -87,3 +87,16 @@ window.addEventListener("resize", () => {
       .slice(0, -2)
   );
 });
+
+/**
+** infinite-scrolling :-
+ Duplicating slides :- attaches the cloned first slide as the last in the series of slides
+*/
+const firstSlideClone = slides[0].cloneNode(true);
+firstSlideClone.setAttribute("aria-hidden", "true");
+slideWrapper.append(firstSlideClone);
+
+// cloned last slide as the first in the series of slides : -
+const lastSlideClone = slides[total_Slides - 1].cloneNode(true);
+lastSlideClone.setAttribute("aria-hidden", "true");
+slideWrapper.prepend(lastSlideClone);
