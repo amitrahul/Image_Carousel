@@ -217,7 +217,7 @@ carouselContainer.addEventListener("pointerleave", () => {
  * Togging autoplay for keyboard users
     used focus and blur event listeners
 
-    option true is necessary to catch the focus/blur event fired 
+    option "true" is necessary to catch the focus/blur event fired 
       by any element inside the carousel container.
  */
 carouselContainer.addEventListener(
@@ -236,3 +236,10 @@ carouselContainer.addEventListener(
   },
   true
 );
+
+/*
+ * Togging autoplay for touch device users
+ */
+carouselContainer.addEventListener("touchstart", () => {
+  stopCarouselSlide();
+});
