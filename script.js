@@ -188,3 +188,27 @@ const stopCarouselSlide = () => {
 };
 
 // Intersection Observer
+// start autoplay is when the carousel fully enters into the user’s viewport.
+const observer = new IntersectionObserver(callback, { threshold: 0.99 });
+
+function callback() {
+  enteries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      playCarouselSlide();
+    } else {
+      stopCarouselSlide();
+    }
+  });
+}
+
+/*
+* Togging autoplay for mouse users :-
+used pointerenter and pointerleave event listeners and attach them to the carousel container.
+ */
+carouselContainer.addEventListener("pointerenter", () => {
+  stopCarouselSlide();
+});
+
+carouselContainer.addEventListener("pointerleave", () => {
+  playCarouselSlide();
+});
