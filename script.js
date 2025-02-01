@@ -24,7 +24,7 @@ function index_of_CurrentSlide() {
 }
 
 /*
-  This is handling Nav dot click functionality.
+  * This is handling Nav dot click functionality.
  -> clicking each navigation dot will reveal its corresponding slide.
  */
 function handleNavDotPositionSlide(index) {
@@ -41,7 +41,7 @@ for (let i = 0; i < total_Slides; i++) {
 slideWrapper.classList.add("smooth-scroll");
 
 /*
- * helper function that applies the ".is-active" class to a navigation dot with the given index
+ * it applies the ".is-active" class to a navigation dot with the given index.
  */
 function markNavdot(index) {
   navdots[index].classList.add("is-active");
@@ -57,3 +57,22 @@ function updateNavdot() {
   if (c < 0 || c >= total_Slides) return;
   markNavdot(c);
 }
+
+/*
+ * reset navdot and mark it.
+Every time the user scrolls the carousel, the scroll event fires, 
+removing the is-active class from all the navigation dots and marking 
+the one that corresponds to the current slide.
+ */
+slideWrapper.addEventListener("scroll", () => {
+  navdots.forEach((navdot) => {
+    navdot.classList.remove("is-active");
+    navdot.setAttribute("aria-disabled", "false");
+  });
+
+  updateNavdot();
+});
+
+// mark the first navigation dot upon the page loading.
+markNavdot(0);
+slideWrapper.classList.add("smooth-scroll");
