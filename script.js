@@ -131,7 +131,7 @@ const forwardScroll = () => {
  * Then, when the carousel is scrolled forward to reveal about half of the 
  cloned first slide, the rewindScrolls() gets executed. Similarly, when the carousel 
  is scrolled backward to reveal about half of the cloned last slide, the forwardScroll() gets executed.
- 
+
  */
 slideWrapper.addEventListener("scroll", () => {
   navdots.forEach((navdot) => {
@@ -158,3 +158,33 @@ slideWrapper.addEventListener("scroll", () => {
     }
   }, 1000);
 });
+
+handleNavDotPositionSlide(0);
+markNavdot(0);
+slideWrapper.classList.add("smooth-scroll");
+
+//carousel autoplay :-
+// executing this function repeatedly,implemented the autoplaying feaeture.
+const nextSlide = () => {
+  handleNavDotPositionSlide(index_of_CurrentSlide() + 1);
+};
+
+const pauseTimer = 1500;
+let intervalTime;
+
+// it starts autoplaying the carousel.
+const playCarouselSlide = () => {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    return;
+  }
+  clearInterval(intervalTime);
+  slideWrapper.setAttribute("aria-live", "off");
+  intervalTime = setInterval(nextSlide, pauseTimer);
+};
+
+const stopCarouselSlide = () => {
+  clearInterval(intervalTime);
+  slideWrapper.setAttribute("aria-live", "polite");
+};
+
+// Intersection Observer
