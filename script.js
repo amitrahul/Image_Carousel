@@ -13,6 +13,7 @@ let spaceBtwSlides = Number(
     .getPropertyValue("grid-column-gap")
     .slice(0, -2)
 );
+let scrollTimer;
 
 /*
  * computes the index of the slide currently shown from how much the slide wrapper is scrolled
@@ -100,3 +101,60 @@ slideWrapper.append(firstSlideClone);
 const lastSlideClone = slides[total_Slides - 1].cloneNode(true);
 lastSlideClone.setAttribute("aria-hidden", "true");
 slideWrapper.prepend(lastSlideClone);
+
+const rewindScroll = () => {
+  slideWrapper.classList.remove("smooth-scroll");
+  setTimeout(() => {
+    slideWrapper.scrollTo(
+      (slideWidth + spaceBtwSlides) * total_slidesCloned,
+      0
+    );
+    slideWrapper.classList.add("smooth-scroll");
+  }, 100);
+};
+
+const forwardScroll = () => {
+  slideWrapper.classList.remove("smooth-scroll");
+  setTimeout(() => {
+    slideWrapper.scrollTo(
+      (slideWidth + spaceBtwSlides) * (total_Slides - 1 + total_slidesCloned),
+      0
+    );
+    slideWrapper.classList.add("smooth-scroll");
+  }, 100);
+};
+
+/**
+ * used setTimeout() and clearTimeout() so that don't run the code 
+ for the instant scrolling while the user keeps scrolling the carousel.
+
+ * Then, when the carousel is scrolled forward to reveal about half of the 
+ cloned first slide, the rewindScrolls() gets executed. Similarly, when the carousel 
+ is scrolled backward to reveal about half of the cloned last slide, the forwardScroll() gets executed.
+ 
+ */
+slideWrapper.addEventListener("scroll", () => {
+  navdots.forEach((navdot) => {
+    navdot.classList.remove("is-active");
+    navdot.setAttribute("aria-disabled", "false");
+  });
+
+  // to cancel if scroll continues
+  if (scrollTimer) clearTimeout(scrollTimer);
+
+  scrollTimer = setTimeout(() => {
+    if (
+      slideWrapper.scrollLeft <
+      (slideWidth + spaceBtwSlides) * (total_slidesCloned - 1 / 2)
+    ) {
+      forwardScroll();
+    }
+
+    if (
+      slideWrapper.scrollLeft >
+      (slideWidth + spaceBtwSlides) * (total_slidesCloned - 1 / 2)
+    ) {
+      rewindScroll();
+    }
+  }, 1000);
+});
