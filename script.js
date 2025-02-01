@@ -3,6 +3,8 @@ const slideWrapper = document.querySelector(".carousel__slides");
 const slides = document.querySelectorAll(".carousel__slide");
 const navdotWrapper = document.querySelector(".carousel__navdots");
 const navdots = document.querySelectorAll(".carousel__navdots button");
+const leftArrow = document.querySelector(".prev");
+const rightArrow = document.querySelector(".next");
 
 const total_Slides = slides.length;
 const total_slidesCloned = 1;
@@ -268,4 +270,30 @@ window.addEventListener("resize", () => {
   resizeTimer = setTimeout(() => {
     playCarouselSlide();
   }, 500);
+});
+
+let currentSlideIndex = index_of_CurrentSlide();
+
+leftArrow.addEventListener("click", () => {
+  if (currentSlideIndex > 0 && currentSlideIndex < total_Slides) {
+    handleNavDotPositionSlide(currentSlideIndex - 1);
+    currentSlideIndex--;
+  } else {
+    currentSlideIndex = total_Slides - 1;
+    handleNavDotPositionSlide(-1);
+  }
+  updateNavdot();
+});
+
+currentSlideIndex = index_of_CurrentSlide();
+
+rightArrow.addEventListener("click", () => {
+  if (currentSlideIndex >= 0 && currentSlideIndex < total_Slides - 1) {
+    handleNavDotPositionSlide(currentSlideIndex + 1);
+    currentSlideIndex++;
+  } else {
+    currentSlideIndex = 0;
+    handleNavDotPositionSlide(total_Slides);
+  }
+  updateNavdot();
 });

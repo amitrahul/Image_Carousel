@@ -84,3 +84,8 @@
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
 }
+
+.prev:hover,
+.next:hover {
+  background: rgba(238, 14, 14, 0.2);
+}
